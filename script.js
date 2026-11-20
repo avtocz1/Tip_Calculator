@@ -1,39 +1,71 @@
 const bill = document.getElementById("bill-input");
+const inputs = document.querySelectorAll(".input")
 const peopleAmount = document.getElementById("amount-of-people");
 const customTip = document.getElementById("custom-tip");
 const tipBtns = document.querySelectorAll("#btn");
-const results = document.querySelectorAll("#result");
+const tipResult = document.getElementById("tip-result");
+const totalResult = document.getElementById("total-result");
+const resetBtn = document.getElementById("reset")
 
-let fetchingBill;
-let fetchingNumberOfPeople
+const form = document.forms
 
-const obj = {
-    receivedBill: "",
-    people: 0,
-    tip: 0,
+let fetchedBill = 0;
+let fetchedNumberOfPeople = 0;
+let fetchedTip = 0;
+
+bill.addEventListener("input", billProcessing)
+
+peopleAmount.addEventListener("input", PeopleProcessing)
+    
+tipBtns.forEach((b) => {
+    b.addEventListener("click", tipProcessing)
+})
+
+customTip.addEventListener("input", customTipProcessing)
+
+function billProcessing() {
+    fetchedBill = Number(bill.value)
+    calculation()
 }
 
+function PeopleProcessing() {
+    fetchedNumberOfPeople = Number(peopleAmount.value)
+    calculation()
+}
 
-bill.addEventListener("blur", function(){
-    fetchingBill = bill.value;
-    obj.receivedBill = Number(fetchingBill);
-})
+function tipProcessing(e) {
+    fetchedTip = parseInt(e.target.textContent)
+    calculation()
+}
 
+function customTipProcessing() {
+    fetchedTip = customTip.value
+    calculation()
+}
 
-peopleAmount.addEventListener("blur", function() {
-    fetchingNumberOfPeople = peopleAmount.value;
-    obj.people = Number(fetchingNumberOfPeople)
-})
+function calculation() {
+    const datas = []
+    
+    datas.push(fetchedBill, fetchedNumberOfPeople, fetchedTip)
+    resetBtn.disabled = false
 
-tipBtns.forEach((b) => {
-    b.addEventListener("click", function(e) {
-        obj.tip = e.target.textContent
+    resetBtn.addEventListener("click", function() {
+        inputs.forEach((el) => {
+            inputs.textContent = ""
+        })
     })
-})
-
-customTip.addEventListener("blur", function(){
-    fetchingBill = customTip.value;
-    obj.tip = Number(fetchingBill);
-})
-let number = obj.receivedBill
-console.log(number)
+    
+    if(!datas.includes(0)){
+        let calculatedTip = fetchedTip / 100;
+        let totalTip = fetchedBill * calculatedTip;
+        let tipAmount = totalTip / fetchedNumberOfPeople
+        let totalPersonOperation1 = (fetchedBill + totalTip) / fetchedNumberOfPeople
+        
+        if(isFinite(tipAmount)){
+            tipResult.textContent = `$${tipAmount.toFixed(2)}`
+            totalResult.textContent = `$${totalPersonOperation1.toFixed(2)}`
+        }else{
+            tipResult.textContent = "$0.00"
+        }
+    }
+}

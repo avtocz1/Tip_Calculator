@@ -18,7 +18,7 @@
         <p class="bill-title title">Bill</p>
         <div class="bill-bar bar">
             <img src="./images/icon-dollar.svg" alt="dollar sign svg">
-            <input class="input" id="bill-input" name="bill_inp" type="number" placeholder="0">
+            <input class="input" id="bill-input" type="number" step="50" min="0" placeholder="0">
         </div>
         <div class="tip-selection-wrapper">
             <p class="select-tip title">Select Tip %</p>
@@ -29,7 +29,7 @@
                 <button class="25-percent tip btn" id="btn" type="button">25%</button>
                 <button class="50-percent tip btn" id="btn" type="button">50%</button>
                 <div class="custom-bar">
-                    <input class="custom-tip input" id="custom-tip" type="number" placeholder="Custom"></input>
+                    <input class="custom-tip input" id="custom-tip" type="number" step="5" min="0" placeholder="Custom"></input>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <p class="number-of-people title">Number of people</p>
             <div class="number-of-people-bar bar">
                 <img src="./images/icon-person.svg" alt="people svg"/>
-                <input class="input person-input" id="amount-of-people" type="number" placeholder="0">
+                <input class="person-input input" id="amount-of-people" type="number" min="0" placeholder="0">
             </div>
         </div>
     </div>
@@ -48,17 +48,17 @@
                     <span class="tip-amount note">Tip Amount</span>
                     <span class="per-person">/ Person</span>
                 </div>
-                <span class="result" id="result">$0.00</span>
+                <span class="result" id="tip-result">$0.00</span>
             </div>
             <div class="tip-wrapper">
                 <div class="label">
                     <span class="tip-amount note">Total</span>
                     <span class="per-person">/ Person</span>
                 </div>
-                <span class="result" id="result">$0.00</span>
+                <span class="result" id="total-result">$0.00</span>
             </div>
         </div>
-        <button class="reset-btn btn" type="reset" disabled>RESET</button>
+        <button class="reset-btn btn" id="reset" type="reset" disabled>RESET</button>
     </div>
     <!-- </div> -->
     </main>
